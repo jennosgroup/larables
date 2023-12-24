@@ -1,6 +1,6 @@
 <?php
 
-namespace JennosGroup\Laratables\Exceptions;
+namespace JennosGroup\Larables\Exceptions;
 
 use Exception;
 

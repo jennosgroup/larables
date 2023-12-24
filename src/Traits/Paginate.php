@@ -1,8 +1,7 @@
 <?php
 
-namespace JennosGroup\Laratables\Traits;
+namespace JennosGroup\Larables\Traits;
 
-use Laratables\Exceptions\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 trait Paginate

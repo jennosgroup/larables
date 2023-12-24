@@ -1,6 +1,6 @@
 <?php
 
-namespace JennosGroup\Laratables;
+namespace JennosGroup\Larables;
 
 class Url
 {

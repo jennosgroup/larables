@@ -1,8 +1,6 @@
 <?php
 
-namespace JennosGroup\Laratables\Traits;
-
-use JennosGroup\Laratables\Exceptions\QueryException;
+namespace JennosGroup\Larables\Traits;
 
 trait Sort
 {

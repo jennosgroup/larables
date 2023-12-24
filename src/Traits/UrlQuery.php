@@ -1,8 +1,8 @@
 <?php
 
-namespace JennosGroup\Laratables\Traits;
+namespace JennosGroup\Larables\Traits;
 
-use JennosGroup\Laratables\Url;
+use JennosGroup\Larables\Url;
 
 trait UrlQuery
 {

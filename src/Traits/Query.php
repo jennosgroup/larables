@@ -1,10 +1,10 @@
 <?php
 
-namespace JennosGroup\Laratables\Traits;
+namespace JennosGroup\Larables\Traits;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use JennosGroup\Laratables\Exceptions\QueryException;
+use JennosGroup\Larables\Exceptions\QueryException;
 
 trait Query
 {

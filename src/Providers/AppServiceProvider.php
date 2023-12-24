@@ -1,6 +1,6 @@
 <?php
 
-namespace JennosGroup\Laratables\Providers;
+namespace JennosGroup\Larables\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

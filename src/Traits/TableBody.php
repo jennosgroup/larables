@@ -1,6 +1,6 @@
 <?php
 
-namespace JennosGroup\Laratables\Traits;
+namespace JennosGroup\Larables\Traits;
 
 use Illuminate\Support\Str;
 
