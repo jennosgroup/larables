@@ -20,6 +20,8 @@ trait ElementAttributes
         'tfoot_th' => [],
         'table_tr' => [],
         'table_th' => [],
+        'tbody_tr_no_items' => [],
+        'tbody_td_no_items' => [],
     ];
 
     /**
@@ -37,6 +39,20 @@ trait ElementAttributes
         }
 
         return $attributes;
+    }
+
+    /**
+     * Merge a list of attributes.
+     */
+    public function mergeAttributes(array $primary, array $secondary): array
+    {
+        foreach ($secondary as $attribute => $value) {
+            $primary[$attribute] = implode(
+                ' ', array_unique(array_merge($primary[$attribute] ?? [], $value))
+            );
+        }
+
+        return $primary;
     }
 
 	/**
