@@ -1,5 +1,5 @@
-<table>
-    @include('jg-laratables::thead')
-    @include('jg-laratables::tbody')
-    @include('jg-laratables::tfoot')
+<table {!! $table->getTableAttributesHtml() !!}>
+    @include(Larables::viewsId().'::thead')
+    @include(Larables::viewsId().'::tbody')
+    @include(Larables::viewsId().'::tfoot')
 </table>

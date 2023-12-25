@@ -12,6 +12,11 @@ trait Actions
     protected bool $hasActions = false;
 
     /**
+     * The actions key.
+     */
+    protected string $actionsKey = 'actions';
+
+    /**
      * The list of action types that is needed by default.
      */
     protected array $actions = [];
@@ -36,6 +41,14 @@ trait Actions
     public function hasActions(): bool
     {
         return $this->hasActions;
+    }
+
+    /**
+     * Get the actions key.
+     */
+    public function getActionsKey(): string
+    {
+        return $this->actionsKey;
     }
 
     /**

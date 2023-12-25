@@ -10,6 +10,11 @@ trait Checkbox
     protected bool $hasCheckbox = false;
 
     /**
+     * The checkbox column key.
+     */
+    protected string $checkboxKey = 'checkbox';
+
+    /**
      * The name attribute for the checkbox.
      */
     protected string $checkboxName = 'checkbox';
@@ -25,6 +30,14 @@ trait Checkbox
     public function hasCheckbox(): bool
     {
         return $this->hasCheckbox;
+    }
+
+    /**
+     * Get the checkbox key.
+     */
+    public function getCheckboxKey(): string
+    {
+        return $this->checkboxKey;
     }
 
     /**

@@ -7,10 +7,12 @@ use Illuminate\Cache\ArrayStore;
 abstract class Table
 {
     use Traits\Actions,
+    Traits\AttributesHtml,
     Traits\BulkOptions,
     Traits\Checkbox,
     Traits\Columns,
     Traits\Data,
+    Traits\ElementAttributes,
     Traits\Id,
     Traits\Paginate,
     Traits\Query,

@@ -20,7 +20,10 @@
         "laravel": {
             "providers": [
                 "JennosGroup\\Larables\\Providers\\AppServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Larables": "JennosGroup\\Larables\\Larables"
+            }
         }
     },
     "minimum-stability": "stable",
