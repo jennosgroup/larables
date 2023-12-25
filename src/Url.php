@@ -28,8 +28,7 @@ class Url
      */
     public function scheme(): ?string
     {
-        $scheme = $this->parts[1] ?? null;
-        return empty($scheme) ? null : $scheme;
+        return $this->parts[1] ?? null;
     }
 
     /**
@@ -37,8 +36,7 @@ class Url
      */
     public function domain(): ?string
     {
-        $domain = $this->parts[2] ?? null;
-        return empty($domain) ? null : $domain;
+        return $this->parts[2] ?? null;
     }
 
     /**
@@ -60,8 +58,7 @@ class Url
      */
     public function path(): ?string
     {
-        $path = $this->parts[4] ?? null;
-        return empty($path) ? null : $path;
+        return $this->parts[4] ?? null;
     }
 
     /**
@@ -69,8 +66,7 @@ class Url
      */
     public function query(): ?string
     {
-        $query = $this->parts[5] ?? null;
-        return empty($query) ? null : $query;
+        return $this->parts[5] ?? null;
     }
 
     /**
@@ -103,8 +99,7 @@ class Url
      */
     public function hash(): ?string
     {
-        $hash = $this->parts[6] ?? null;
-        return empty($hash) ? null : $hash;
+        return $this->parts[6] ?? null;
     }
 
     /**
