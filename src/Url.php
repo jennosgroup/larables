@@ -44,13 +44,9 @@ class Url
      */
     public function port(): ?int
     {
-        $port = $this->parts[3] ?? null;
-
-        if (empty($port)) {
-            return null;
-        }
-
-        return str_replace(':', '', $port);
+        return $this->parts[3]
+            ? str_replace(':', '', $this->parts[3])
+            : null;
     }
 
     /**
