@@ -51,4 +51,12 @@ trait BulkOptions
     {
         return [];
     }
+
+    /**
+     * Get the args for the bulk options request.
+     */
+    public function getArgsForBulkOptionsRequest(): array
+    {
+        return $this->getQueryArgs();
+    }
 }

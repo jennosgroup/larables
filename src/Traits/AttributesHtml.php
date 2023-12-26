@@ -307,4 +307,290 @@ trait AttributesHtml
 
 		return $this->parseAttributesToString($attributes);
 	}
+
+	/**
+	 * Get the bulk options container attributes html.
+	 */
+	public function getBulkOptionsContainerAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('bulk_options_container');
+
+		if (method_exists($this, $method = 'filterBulkOptionsContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the bulk options select attributes html.
+	 */
+	public function getBulkOptionsSelectAttributesHtml(): string
+	{
+		$selectsAttributes = $this->getElementAttributes('selects');
+		$bulkAttributes = $this->getElementAttributes('bulk_options_select');
+
+		if (method_exists($this, $method = 'filterSelectAttributes')) {
+			$selectsAttributes = $this->$method($selectsAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($selectsAttributes, $bulkAttributes);
+
+		if (method_exists($this, $method = 'filterBulkOptionsSelectAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+        $attributes['name'] = $this->getBulkActionKey();
+        $attributes['laratables-id'] = 'bulk-options-select';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the per page container attributes html.
+	 */
+	public function getPerPageContainerAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('per_page_container');
+
+		if (method_exists($this, $method = 'filterPerPageContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the per page select attributes html.
+	 */
+	public function getPerPageSelectAttributesHtml(): string
+	{
+		$selectsAttributes = $this->getElementAttributes('selects');
+		$attributes = $this->getElementAttributes('per_page_select');
+
+		if (method_exists($this, $method = 'filterSelectAttributes')) {
+			$selectsAttributes = $this->$method($selectsAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($selectsAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterPerPageSelectAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+        $attributes['name'] = $this->getPerPageKey();
+        $attributes['laratables-id'] = 'per-page-select';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the search container attributes html.
+	 */
+	public function getSearchContainerAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('search_container');
+
+		if (method_exists($this, $method = 'filterSearchContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the search input attributes html.
+	 */
+	public function getSearchInputAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('search_input');
+
+		if (method_exists($this, $method = 'filterSearchInputAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['laratables-id'] = 'search-input';
+        $attributes['type'] = 'search';
+        $attributes['name'] = $this->getSearchKey();
+        $attributes['value'] = $this->getSearchValue();
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the search button attributes html.
+	 */
+	public function getSearchButtonAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('search_button');
+
+		if (method_exists($this, $method = 'filterSearchButtonAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['laratables-id'] = 'search-submit';
+       	$attributes['type'] = 'submit';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the active section container attributes html.
+	 */
+	public function getActiveSectionContainerAttributesHtml(): string
+	{
+		$sectionAttributes = $this->getElementAttributes('section_container');
+		$attributes = $this->getElementAttributes('active_section_container');
+
+		if (method_exists($this, $method = 'filterSectionContainerAttributes')) {
+			$sectionAttributes = $this->$method($sectionAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($sectionAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterActiveSectionContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the trash section container attributes html.
+	 */
+	public function getTrashSectionContainerAttributesHtml(): string
+	{
+		$sectionAttributes = $this->getElementAttributes('section_container');
+		$attributes = $this->getElementAttributes('trash_section_container');
+
+		if (method_exists($this, $method = 'filterSectionContainerAttributes')) {
+			$sectionAttributes = $this->$method($sectionAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($sectionAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterTrashSectionContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the active section attributes html.
+	 */
+	public function getActiveSectionAttributesHtml(): string
+	{
+		$generalAttributes = $this->getElementAttributes('section');
+		$currentAttributes = $this->getElementAttributes('active_section_current');
+		$noneCurrentAttributes = $this->getElementAttributes('active_section_none_current');
+
+		if (method_exists($this, $method = 'filterSectionAttributes')) {
+			$generalAttributes = $this->$method($generalAttributes);
+		}
+
+		if ($this->getCurrentSection() == 'active') {
+			$attributes = $this->mergeAttributes($generalAttributes, $currentAttributes);
+
+			if (method_exists($this, $method = 'filterActiveSectionCurrentAttributes')) {
+				$attributes = $this->$method($attributes);
+			}
+		}
+
+		if ($this->getCurrentSection() == 'trash') {
+			$attributes = $this->mergeAttributes($generalAttributes, $noneCurrentAttributes);
+
+			if (method_exists($this, $method = 'filterActiveSectionNoneCurrentAttributes')) {
+				$attributes = $this->$method($attributes);
+			}
+		}
+
+		$attributes['href'] = $this->getActiveSectionRoute();
+        $attributes['laratables-section'] = 'active';
+        $attributes['laratables-section-active'] = ($this->getCurrentSection() === 'active') ? 'true' : 'false';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the trashsection attributes html.
+	 */
+	public function getTrashSectionAttributesHtml(): string
+	{
+		$generalAttributes = $this->getElementAttributes('section');
+		$currentAttributes = $this->getElementAttributes('trash_section_current');
+		$noneCurrentAttributes = $this->getElementAttributes('trash_section_none_current');
+
+		if (method_exists($this, $method = 'filterSectionAttributes')) {
+			$generalAttributes = $this->$method($generalAttributes);
+		}
+
+		if ($this->getCurrentSection() == 'trash') {
+			$attributes = $this->mergeAttributes($generalAttributes, $currentAttributes);
+
+			if (method_exists($this, $method = 'filterTrashSectionCurrentAttributes')) {
+				$attributes = $this->$method($attributes);
+			}
+		}
+
+		if ($this->getCurrentSection() == 'active') {
+			$attributes = $this->mergeAttributes($generalAttributes, $noneCurrentAttributes);
+
+			if (method_exists($this, $method = 'filterTrashSectionNoneCurrentAttributes')) {
+				$attributes = $this->$method($attributes);
+			}
+		}
+
+		$attributes['href'] = $this->getTrashSectionRoute();
+        $attributes['laratables-section'] = 'trash';
+        $attributes['laratables-section-active'] = ($this->getCurrentSection() === 'trash') ? 'true' : 'false';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the wrapper attributes html.
+	 */
+	public function getWrapperAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('wrapper');
+
+		if (method_exists($this, $method = 'filterWrapperAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['laratables-wrapper'] = 'yes';
+        $attributes['laratables-id'] = $this->getId();
+        $attributes['laratables-checkbox-name'] = $this->getCheckboxName();
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the top bar container attributes html.
+	 */
+	public function getTopBarContainerAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('top_bar_container');
+
+		if (method_exists($this, $method = 'filterTopBarContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the bottom bar container attributes html.
+	 */
+	public function getBottomBarContainerAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('bottom_bar_container');
+
+		if (method_exists($this, $method = 'filterBottomBarContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
 }

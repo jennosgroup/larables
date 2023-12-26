@@ -22,6 +22,7 @@ trait ElementAttributes
         'table_th' => [],
         'tbody_tr_no_item' => [],
         'tbody_td_no_item' => [],
+
         'action_container' => [],
         'action_button' => [],
         'action_link' => [],
@@ -35,6 +36,25 @@ trait ElementAttributes
         'trash_action_link' => [],
         'restore_action_link' => [],
         'delete_action_link' => [],
+        'wrapper_container' => [],
+        'top_bar_container' => [],
+        'bottom_bar_container' => [],
+        'selects' => [],
+        'bulk_options_select' => [],
+        'per_page_select' => [],
+        'search_input' => [],
+        'search_button' => [],
+        'section' => [],
+        'active_section_current' => [],
+        'trash_section_current' => [],
+        'active_section_none_current' => [],
+        'trash_section_none_current' => [],
+        'bulk_options_container' => [],
+        'per_page_container' => [],
+        'search_container' => [],
+        'section_container' => [],
+        'active_section_container' => [],
+        'trash_section_container' => [],
     ];
 
     /**
@@ -60,9 +80,9 @@ trait ElementAttributes
     public function mergeAttributes(array $primary, array $secondary): array
     {
         foreach ($secondary as $attribute => $value) {
-            $primary[$attribute] = implode(
+            $primary[$attribute] = [implode(
                 ' ', array_unique(array_merge($primary[$attribute] ?? [], $value))
-            );
+            )];
         }
 
         return $primary;

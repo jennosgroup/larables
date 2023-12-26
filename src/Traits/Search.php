@@ -106,4 +106,12 @@ trait Search
             }
         });
     }
+
+    /**
+     * Get the args for the search request.
+     */
+    public function getArgsForSearchRequest(): array
+    {
+        return $this->getQueryArgs([$this->getPageKey(), $this->getSearchKey()]);
+    }
 }

@@ -157,4 +157,12 @@ trait Paginate
             250 => 250,
         ];
     }
+
+    /**
+     * Get the args for the per page request.
+     */
+    public function getArgsForPerPageRequest(): array
+    {
+        return $this->getQueryArgs([$this->getPageKey(), $this->getPerPageKey()]);
+    }
 }
