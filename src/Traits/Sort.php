@@ -24,7 +24,7 @@ trait Sort
     /**
      * Whether to allow multiple sorting.
      */
-    protected bool $allowMultipleSorting = true;
+    protected bool $allowMultipleSorting = false;
 
     /**
      * Get the columns that are sortable.
@@ -121,19 +121,19 @@ trait Sort
     /**
      * Get the form column sort and order attributes.
      */
-    public function getColumnSortAndOrderAttributes(string $columnId): array
+    public function getColumnArgsForSorting(string $columnId): array
     {
         if ($this->allowMultipleSorting()) {
-            return $this->getColumnSortAndOrderAttributesForMultipleSorting($columnId);
+            return $this->getColumnArgsForMultipleSorting($columnId);
         }
 
-        return $this->getColumnSortAndOrderAttributesForSingularSorting($columnId);
+        return $this->getColumnArgsForSingularSorting($columnId);
     }
 
     /**
      * Get the form column sort and order attributes for single sorting.
      */
-    public function getColumnSortAndOrderAttributesForSingularSorting(string $columnId): array
+    public function getColumnArgsForSingularSorting(string $columnId): array
     {
         $sort = $this->getSortValue();
         $order = $this->getOrderValue();
@@ -153,7 +153,7 @@ trait Sort
     /**
      * Get the form column sort and order attributes for multiple sorting.
      */
-    public function getColumnSortAndOrderAttributesForMultipleSorting(string $columnId): array
+    public function getColumnArgsForMultipleSorting(string $columnId): array
     {
         $sorts = $this->getSortValue();
         $orders = $this->getOrderValue();
@@ -180,14 +180,6 @@ trait Sort
     }
 
     /**
-     * Check if we have a sort request.
-     */
-    public function hasSortRequest(): bool
-    {
-        return isset($_GET[$this->getSortKey()]);
-    }
-
-    /**
      * Get the sort data.
      */
     public function getSortData(): array
@@ -207,6 +199,14 @@ trait Sort
         }
 
         return $results;
+    }
+
+    /**
+     * Check if we have a sort request.
+     */
+    public function hasSortRequest(): bool
+    {
+        return isset($_GET[$this->getSortKey()]);
     }
 
     /**

@@ -303,7 +303,7 @@ trait AttributesHtml
 		}
 
 		$attributes['href'] = $route;
-		$attributes['onclick'] = "event.preventDefault(); this.querySelector('form').submit();";
+		$attributes['onclick'] = "event.preventDefault(); this.querySelector(".'form'.").submit();";
 
 		return $this->parseAttributesToString($attributes);
 	}

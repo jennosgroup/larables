@@ -22,8 +22,6 @@ trait ElementAttributes
         'table_th' => [],
         'tbody_tr_no_item' => [],
         'tbody_td_no_item' => [],
-
-
         'action_container' => [],
         'action_button' => [],
         'action_link' => [],
