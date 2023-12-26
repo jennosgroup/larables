@@ -23,6 +23,13 @@ trait ElementAttributes
         'tbody_tr_no_item' => [],
         'tbody_td_no_item' => [],
 
+        'checkbox_container' => [],
+        'checkbox_parent_container' => [],
+        'checkbox_child_container' => [],
+        'checkbox_input' => [],
+        'checkbox_input_parent' => [],
+        'checkbox_input_child' => [],
+
         'action_container' => [],
         'action_button' => [],
         'action_link' => [],

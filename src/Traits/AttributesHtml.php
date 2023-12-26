@@ -247,6 +247,102 @@ trait AttributesHtml
 	}
 
 	/**
+	 * Get the checkbox parent container attributes.
+	 */
+	public function getCheckboxParentContainerAttributesHtml(): string
+	{
+		$generalAttributes = $this->getElementAttributes('checkbox_container');
+		$attributes = $this->getElementAttributes('checkbox_parent_container');
+
+		if (method_exists($this, $method = 'filterCheckboxContainerAttributes')) {
+			$generalAttributes = $this->$method($generalAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($generalAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterCheckboxParentContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['larables-id'] = 'checkbox-parent-container';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the checkbox child container attributes.
+	 */
+	public function getCheckboxChildContainerAttributesHtml(): string
+	{
+		$generalAttributes = $this->getElementAttributes('checkbox_container');
+		$attributes = $this->getElementAttributes('checkbox_child_container');
+
+		if (method_exists($this, $method = 'filterCheckboxContainerAttributes')) {
+			$generalAttributes = $this->$method($generalAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($generalAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterCheckboxChildContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['larables-id'] = 'checkbox-child-container';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the checkbox input parent attributes html.
+	 */
+	public function getCheckboxInputParentAttributesHtml(): string
+	{
+		$generalAttributes = $this->getElementAttributes('checkbox_input');
+		$attributes = $this->getElementAttributes('checkbox_input_parent');
+
+		if (method_exists($this, $method = 'filterCheckboxInputAttributes')) {
+			$generalAttributes = $this->$method($generalAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($generalAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterCheckboxInputParentAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['laratables-id'] = 'checkbox-parent';
+        $attributes['type'] = 'checkbox';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the checkbox input child attributes html.
+	 */
+	public function getCheckboxInputChildAttributesHtml(mixed $item): string
+	{
+		$generalAttributes = $this->getElementAttributes('checkbox_input');
+		$attributes = $this->getElementAttributes('checkbox_input_child');
+
+		if (method_exists($this, $method = 'filterCheckboxInputAttributes')) {
+			$generalAttributes = $this->$method($generalAttributes);
+		}
+
+		$attributes = $this->mergeAttributes($generalAttributes, $attributes);
+
+		if (method_exists($this, $method = 'filterCheckboxInputChildAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['laratables-id'] = 'checkbox-child';
+        $attributes['type'] = 'checkbox';
+        $attributes['value'] = $this->getItemCheckboxValue($item);
+        $attributes['name'] = $this->getCheckboxName().'[]';
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
 	 * Get the action container attributes html.
 	 */
 	public function getActionContainerAttributesHtml(mixed $item): string
@@ -279,7 +375,7 @@ trait AttributesHtml
 		}
 
 		$attributes['type'] = 'submit';
-		$attributes['onclick'] = "event.preventDefault(); this.querySelector('form').submit();";
+		$attributes['onclick'] = "event.preventDefault(); this.querySelector(".'"form"'.").submit();";
 
 		return $this->parseAttributesToString($attributes);
 	}
@@ -303,7 +399,7 @@ trait AttributesHtml
 		}
 
 		$attributes['href'] = $route;
-		$attributes['onclick'] = "event.preventDefault(); this.querySelector(".'form'.").submit();";
+		$attributes['onclick'] = "event.preventDefault(); this.querySelector(".'"form"'.").submit();";
 
 		return $this->parseAttributesToString($attributes);
 	}

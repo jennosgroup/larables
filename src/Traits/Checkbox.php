@@ -2,6 +2,9 @@
 
 namespace JennosGroup\Larables\Traits;
 
+use JennosGroup\Larables\Actions\GetCheckboxColumnContent;
+use JennosGroup\Larables\Actions\GetCheckboxColumnTitle;
+
 trait Checkbox
 {
     /**
@@ -65,5 +68,21 @@ trait Checkbox
     public function itemHasCheckbox(mixed $item): bool
     {
         return $this->hasCheckbox();
+    }
+
+    /**
+     * Get the checkbox column title.
+     */
+    public function getCheckboxColumnTitle(string $title, int $columnNumber, string $position): string
+    {
+        return GetCheckboxColumnTitle::execute($position, $this);
+    }
+
+    /**
+     * Get the checkbox column content.
+     */
+    public function getCheckboxColumnContent(mixed $item, int $columnNumber, int $rowNumber): string
+    {
+        return GetCheckboxColumnContent::execute($item, $this);
     }
 }
