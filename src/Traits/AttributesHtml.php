@@ -140,7 +140,7 @@ trait AttributesHtml
 	public function getTbodyTrNoItemAttributesHtml(): string
 	{
 		$tableTrAttributes = $this->getElementAttributes('table_tr');
-		$tbodyTrattributes = $this->getElementAttributes('tbody_tr');
+		$tbodyTrAttributes = $this->getElementAttributes('tbody_tr');
 		$noItemsAttributes = $this->getElementAttributes('tbody_tr_no_item');
 
 		if (method_exists($this, $method = 'filterTableTrAttributes')) {
@@ -152,7 +152,7 @@ trait AttributesHtml
 		}
 
 		$attributes = $this->mergeAttributes($tbodyTrAttributes, $tableTrAttributes);
-		$attributes = $this->mergeAttributes($attributes, $noitemsttributes);
+		$attributes = $this->mergeAttributes($attributes, $noItemsAttributes);
 
 		if (method_exists($this, $method = 'filterTbodyTrNoItemAttributes')) {
 			$attributes = $this->$method($attributes);
@@ -310,7 +310,7 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
-		$attributes['laratables-id'] = 'checkbox-parent';
+		$attributes['larables-id'] = 'checkbox-parent';
         $attributes['type'] = 'checkbox';
 
 		return $this->parseAttributesToString($attributes);
@@ -334,7 +334,7 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
-		$attributes['laratables-id'] = 'checkbox-child';
+		$attributes['larables-id'] = 'checkbox-child';
         $attributes['type'] = 'checkbox';
         $attributes['value'] = $this->getItemCheckboxValue($item);
         $attributes['name'] = $this->getCheckboxName().'[]';
@@ -437,7 +437,7 @@ trait AttributesHtml
 		}
 
         $attributes['name'] = $this->getBulkActionKey();
-        $attributes['laratables-id'] = 'bulk-options-select';
+        $attributes['larables-id'] = 'bulk-options-select';
 
 		return $this->parseAttributesToString($attributes);
 	}
@@ -475,7 +475,7 @@ trait AttributesHtml
 		}
 
         $attributes['name'] = $this->getPerPageKey();
-        $attributes['laratables-id'] = 'per-page-select';
+        $attributes['larables-id'] = 'per-page-select';
 
 		return $this->parseAttributesToString($attributes);
 	}
@@ -505,7 +505,7 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
-		$attributes['laratables-id'] = 'search-input';
+		$attributes['larables-id'] = 'search-input';
         $attributes['type'] = 'search';
         $attributes['name'] = $this->getSearchKey();
         $attributes['value'] = $this->getSearchValue();
@@ -524,7 +524,7 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
-		$attributes['laratables-id'] = 'search-submit';
+		$attributes['larables-id'] = 'search-button';
        	$attributes['type'] = 'submit';
 
 		return $this->parseAttributesToString($attributes);
@@ -602,8 +602,8 @@ trait AttributesHtml
 		}
 
 		$attributes['href'] = $this->getActiveSectionRoute();
-        $attributes['laratables-section'] = 'active';
-        $attributes['laratables-section-active'] = ($this->getCurrentSection() === 'active') ? 'true' : 'false';
+        $attributes['larables-section'] = 'active';
+        $attributes['larables-section-active'] = ($this->getCurrentSection() === 'active') ? 'true' : 'false';
 
 		return $this->parseAttributesToString($attributes);
 	}
@@ -638,8 +638,8 @@ trait AttributesHtml
 		}
 
 		$attributes['href'] = $this->getTrashSectionRoute();
-        $attributes['laratables-section'] = 'trash';
-        $attributes['laratables-section-active'] = ($this->getCurrentSection() === 'trash') ? 'true' : 'false';
+        $attributes['larables-section'] = 'trash';
+        $attributes['larables-section-active'] = ($this->getCurrentSection() === 'trash') ? 'true' : 'false';
 
 		return $this->parseAttributesToString($attributes);
 	}
@@ -655,9 +655,9 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
-		$attributes['laratables-wrapper'] = 'yes';
-        $attributes['laratables-id'] = $this->getId();
-        $attributes['laratables-checkbox-name'] = $this->getCheckboxName();
+		$attributes['larables-wrapper'] = 'yes';
+        $attributes['larables-id'] = $this->getId();
+        $attributes['larables-checkbox-name'] = $this->getCheckboxName();
 
 		return $this->parseAttributesToString($attributes);
 	}
