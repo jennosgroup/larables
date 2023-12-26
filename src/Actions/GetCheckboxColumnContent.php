@@ -11,6 +11,10 @@ class GetCheckboxColumnContent
 	 */
 	public static function execute(mixed $item, Table $table): string
 	{
+		if (! $table->itemHasCheckbox($item)) {
+			return '';
+		}
+
 		$containerAttributes = $table->getCheckboxChildContainerAttributesHtml();
 
         $checkboxAttributes = $table->getCheckboxInputChildAttributesHtml($item);

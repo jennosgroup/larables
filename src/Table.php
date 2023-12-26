@@ -14,6 +14,7 @@ abstract class Table
     Traits\Data,
     Traits\ElementAttributes,
     Traits\Id,
+    Traits\Page,
     Traits\Paginate,
     Traits\Query,
     Traits\Sanitize,

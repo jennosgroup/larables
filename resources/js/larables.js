@@ -108,9 +108,10 @@ function Larables() {
 		        methodElement.setAttribute('value', requestType);
 		    }
 
-		    // Set the method and action
+		    // Set the form method, form action and an action selected
 		    form.setAttribute('method', method);
 		    form.setAttribute('action', route);
+      		form.querySelector("[larables-id='bulk-options-name']").value = element.value;
 
 		    // Finally we submit the form
 		    form.submit();

@@ -15,6 +15,7 @@
     <form style="display: none;" larables-id="bulk-options-form">
         <input type="hidden" larables-id="bulk-options-csrf-token" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" larables-id="bulk-options-method" name="_method" value="">
+        <input type="hidden" larables-id="bulk-options-name" name="{{ $table->getBulkActionKey() }}" value=""> 
 
         @foreach ($table->getArgsForBulkOptionsRequest() as $key => $value)
             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
