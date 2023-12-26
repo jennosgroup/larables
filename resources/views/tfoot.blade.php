@@ -3,7 +3,7 @@
         <tr {!! $table->getTfootTrAttributesHtml() !!}>
             @foreach ($table->getColumns() as $columnId => $columnTitle)
                 <th {!! $table->getTfootThAttributesHtml($columnId, $loop->iteration) !!}>
-                    {!! $table->getColumnTitle($columnId, $columnTitle, $loop->iteration, 'foot') !!}
+                    {!! $table->getTitleForColumn($columnId, $columnTitle, $loop->iteration, 'foot') !!}
                 </th>
             @endforeach
         </tr>

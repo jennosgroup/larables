@@ -14,15 +14,15 @@ trait UrlQuery
     /**
      * Check if the current request has query parameters.
      */
-    public function hasQueryParameters(): bool
+    public function hasQueryArgs(): bool
     {
-        return $this->url()->hasQueryParameters();
+        return $this->url()->hasQueryArgs();
     }
 
     /**
      * Get the currently submitted url query string parameters.
      */
-    public function getQueryParameters(array $except = []): array
+    public function getQueryArgs(array $except = []): array
     {
         return $this->url()->queryArgs($except);
     }

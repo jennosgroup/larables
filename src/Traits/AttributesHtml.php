@@ -137,11 +137,11 @@ trait AttributesHtml
 	/**
 	 * Get the tbody tr no items attributes html.
 	 */
-	public function getTbodyTrNoItemsAttributesHtml(): string
+	public function getTbodyTrNoItemAttributesHtml(): string
 	{
 		$tableTrAttributes = $this->getElementAttributes('table_tr');
 		$tbodyTrattributes = $this->getElementAttributes('tbody_tr');
-		$noItemsAttributes = $this->getElementAttributes('tbody_tr_no_items');
+		$noItemsAttributes = $this->getElementAttributes('tbody_tr_no_item');
 
 		if (method_exists($this, $method = 'filterTableTrAttributes')) {
 			$tableTrAttributes = $this->$method($tableTrAttributes);
@@ -154,7 +154,7 @@ trait AttributesHtml
 		$attributes = $this->mergeAttributes($tbodyTrAttributes, $tableTrAttributes);
 		$attributes = $this->mergeAttributes($attributes, $noitemsttributes);
 
-		if (method_exists($this, $method = 'filterTbodyTrNoItemsAttributes')) {
+		if (method_exists($this, $method = 'filterTbodyTrNoItemAttributes')) {
 			$attributes = $this->$method($attributes);
 		}
 
@@ -164,10 +164,10 @@ trait AttributesHtml
 	/**
 	 * Get the tbody td no items attributes html.
 	 */
-	public function getTbodyTdNoItemsAttributesHtml(): string
+	public function getTbodyTdNoItemAttributesHtml(): string
 	{
 		$tbodyTdAttributes = $this->getElementAttributes('tbody_td');
-		$noItemsAttributes = $this->getElementAttributes('tbody_td_no_items');
+		$noItemsAttributes = $this->getElementAttributes('tbody_td_no_item');
 
 		if (method_exists($this, $method = 'filterTbodyTdAttributes')) {
 			$tbodyTdAttributes = $this->$method($tbodyTdAttributes);
@@ -175,7 +175,7 @@ trait AttributesHtml
 
 		$attributes = $this->mergeAttributes($tbodyTdAttributes, $noItemsAttributes);
 
-		if (method_exists($this, $method = 'filterTbodyTdNoItemsAttributes')) {
+		if (method_exists($this, $method = 'filterTbodyTdNoItemAttributes')) {
 			$attributes = $this->$method($attributes);
 		}
 
@@ -242,6 +242,68 @@ trait AttributesHtml
 		if (method_exists($this, $method = 'filter'.Str::studly($columnId).'TfootThAttributes')) {
 			$attributes = $this->$method($attributes, $columnNumber);
 		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the action container attributes html.
+	 */
+	public function getActionContainerAttributesHtml(mixed $item): string
+	{
+		$attributes = $this->getElementAttributes('action_container');
+
+		if (method_exists($this, $method = 'filterActionContainerAttributes')) {
+			$attributes = $this->$method($attributes, $item);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the action button attributes html.
+	 */
+	public function getActionButtonAttributesHtml(string $action, mixed $item): string
+	{
+		$actionAttributes = $this->getElementAttributes('action_button');
+		$customAttributes = $this->getElementAttributes($action.'_action_button');
+
+		if (method_exists($this, $method = 'filterActionButtonAttributes')) {
+			$actionAttributes = $this->$method($actionAttributes, $item);
+		}
+
+		$attributes = $this->mergeAttributes($actionAttributes, $customAttributes);
+
+		if (method_exists($this, $method = 'filter'.Str::studly($action).'ActionButtonAttributes')) {
+			$attributes = $this->$method($attributes, $item);
+		}
+
+		$attributes['type'] = 'submit';
+		$attributes['onclick'] = "event.preventDefault(); this.querySelector('form').submit();";
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the action link attributes html.
+	 */
+	public function getActionLinkAttributesHtml(string $action, string $route, mixed $item): string
+	{
+		$actionAttributes = $this->getElementAttributes('action_link');
+		$customAttributes = $this->getElementAttributes($action.'_action_link');
+
+		if (method_exists($this, $method = 'filterActionLinkAttributes')) {
+			$actionAttributes = $this->$method($actionAttributes, $item);
+		}
+
+		$attributes = $this->mergeAttributes($actionAttributes, $customAttributes);
+
+		if (method_exists($this, $method = 'filter'.Str::studly($action).'ActionLinkAttributes')) {
+			$attributes = $this->$method($attributes, $item);
+		}
+
+		$attributes['href'] = $route;
+		$attributes['onclick'] = "event.preventDefault(); this.querySelector('form').submit();";
 
 		return $this->parseAttributesToString($attributes);
 	}

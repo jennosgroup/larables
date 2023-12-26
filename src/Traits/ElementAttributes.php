@@ -20,8 +20,23 @@ trait ElementAttributes
         'tfoot_th' => [],
         'table_tr' => [],
         'table_th' => [],
-        'tbody_tr_no_items' => [],
-        'tbody_td_no_items' => [],
+        'tbody_tr_no_item' => [],
+        'tbody_td_no_item' => [],
+
+
+        'action_container' => [],
+        'action_button' => [],
+        'action_link' => [],
+        'view_action_button' => [],
+        'edit_action_button' => [],
+        'trash_action_button' => [],
+        'restore_action_button' => [],
+        'delete_action_button' => [],
+        'view_action_link' => [],
+        'edit_action_link' => [],
+        'trash_action_link' => [],
+        'restore_action_link' => [],
+        'delete_action_link' => [],
     ];
 
     /**

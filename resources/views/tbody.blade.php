@@ -4,15 +4,15 @@
             <tr {!! $table->getTbodyTrAttributesHtml($item, $loop->iteration) !!}>
                 @foreach ($table->getColumns() as $columnId => $columnTitle)
                     <td {!! $table->getTbodyTdAttributesHtml($item, $columnId, $loop->iteration, $loop->parent->iteration) !!}>
-                        {!! $table->getColumnContent($item, $columnId, $loop->iteration, $loop->parent->iteration) !!}
+                        {!! $table->getContentForColumn($item, $columnId, $loop->iteration, $loop->parent->iteration) !!}
                     </td>
                 @endforeach
             </tr>
         @endforeach
     @else
-        <tr {!! $table->getTbodyTrNoItemsAttributesHtml() !!}>
-            <td {!! $table->getTbodyTdNoItemsAttributesHtml() !!} colspan="{{ $table->getColumnsCount() }}">
-                {!! $table->getNoItemsMessage() !!}
+        <tr {!! $table->getTbodyTrNoItemAttributesHtml() !!}>
+            <td {!! $table->getTbodyTdNoItemAttributesHtml() !!} colspan="{{ $table->getColumnsCount() }}">
+                {!! $table->getNoItemMessage() !!}
             </td>
         </tr>
     @endif

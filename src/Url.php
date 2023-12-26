@@ -101,7 +101,7 @@ class Url
     /**
      * Check if the current request has query parameters.
      */
-    public function hasQueryParameters(): bool
+    public function hasQueryArgs(): bool
     {
         return ! empty($this->query());
     }

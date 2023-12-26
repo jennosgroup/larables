@@ -9,28 +9,26 @@ Trait TableBody
     /**
      * The no items message.
      */
-    protected string $noItemsMessage = 'There is nothing to display.';
+    protected string $noItemMessage = 'There is nothing to display.';
 
     /**
      * Get the no items message.
      */
-    public function getNoItemsMessage(): string
+    public function getNoItemMessage(): string
     {
-        return $this->noItemsMessage;
+        return $this->noItemMessage;
     }
 
     /**
      * Get the row content.
      */
-    public function getColumnContent(mixed $item, string $columnId, int $columnNumber, int $rowNumber): ?string
+    public function getContentForColumn(mixed $item, string $columnId, int $columnNumber, int $rowNumber): ?string
     {
-        // Allows filtering of a specific column content
-        if (method_exists($this, $method = 'filter'.Str::studly($columnId).'ColumnContent')) {
+        if (method_exists($this, $method = 'get'.Str::studly($columnId).'ColumnContent')) {
             return $this->$method($item, $columnNumber, $rowNumber);
         }
 
-        // Allows filtering of any column
-        if (method_exists($this, $method = 'filterColumnContent')) {
+        if (method_exists($this, $method = 'getColumnContent')) {
             return $this->$method($item, $columnId, $columnNumber, $rowNumber);
         }
 

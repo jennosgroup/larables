@@ -22,15 +22,13 @@ Trait TableHeadFoot
     /**
      * Get the column th title.
      */
-    public function getColumnTitle(string $columnId, string $columnTitle = null, int $columnNumber, string $position): ?string
+    public function getTitleForColumn(string $columnId, string $columnTitle = null, int $columnNumber, string $position): ?string
     {
-        // Allows filtering the title of a specific column
-        if (method_exists($this, $method = 'filter'.Str::studly($columnId).'ColumnTitle')) {
+        if (method_exists($this, $method = 'get'.Str::studly($columnId).'ColumnTitle')) {
             return $this->$method($columnTitle, $columnNumber, $position);
         }
 
-        // Allow general filtering for all columns
-        if (method_exists($this, $method = 'filterColumnTitle')) {
+        if (method_exists($this, $method = 'getColumnTitle')) {
             return $this->$method($columnId, $columnTitle, $columnNumber, $position);
         }
 
