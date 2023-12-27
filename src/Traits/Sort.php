@@ -234,4 +234,16 @@ trait Sort
             $this->getQuery()->orderBy(htmlspecialchars($column), $order);
         }
     }
+
+    /**
+     * Get the args for the sort request.
+     */
+    public function getArgsForSortRequest(string $columnId): array
+    {
+        $queryArgs = $this->getQueryArgs([
+            $this->getPageKey(), $this->getSortKey(), $this->getOrderKey()
+        ]);
+
+        return array_merge($queryArgs, $this->getColumnArgsForSorting($columnId));
+    }
 }

@@ -60,6 +60,9 @@ trait ElementAttributes
         'section_container' => [],
         'active_section_container' => [],
         'trash_section_container' => [],
+        'column_title_container' => [],
+        'column_title' => [],
+        'sort_button' => [],
     ];
 
     /**

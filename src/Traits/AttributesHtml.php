@@ -689,4 +689,49 @@ trait AttributesHtml
 
 		return $this->parseAttributesToString($attributes);
 	}
+
+	/**
+	 * Get the column container attributes html.
+	 */
+	public function getColumnTitleContainerAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('column_title_container');
+
+		if (method_exists($this, $method = 'filterColumnTitleContainerAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the column title attributes html.
+	 */
+	public function getColumnTitleAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('column_title');
+
+		if (method_exists($this, $method = 'filterColumTitleAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		return $this->parseAttributesToString($attributes);
+	}
+
+	/**
+	 * Get the sort button attributes html.
+	 */
+	public function getSortButtonAttributesHtml(): string
+	{
+		$attributes = $this->getElementAttributes('sort_button');
+
+		if (method_exists($this, $method = 'filterSortButtonAttributes')) {
+			$attributes = $this->$method($attributes);
+		}
+
+		$attributes['type'] = 'submit';
+        $attributes['larables-id'] = 'column-sort-button';
+
+		return $this->parseAttributesToString($attributes);
+	}
 }

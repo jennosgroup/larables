@@ -1,33 +1,30 @@
 import Swal from 'sweetalert2';
 
 function Larables() {
+	/**
+	 * Initiate the object.
+	 */
 	this.init = function () {
 		this.registerBulkEvents();
 		this.registerPerPageEvents();
 		this.registerSearchEvents();
-
-		document.querySelectorAll("[larables-id='checkbox-parent']").forEach(function (element) {
-			element.addEventListener('click', function (event) {
-
-		        // We cycle through the body checkboxes and make them the same checked state as the clicked parent checkbox
-		        document.querySelectorAll("[larables-id='checkbox-child']").forEach(function (checkbox) {
-		            checkbox.checked = element.checked;
-		        });
-
-		        // Make all parent checkbox the same checked state as the one that was clicked
-		        document.querySelectorAll("[larables-id='checkbox-parent']").forEach(function (mainCheckbox) {
-		            mainCheckbox.checked = element.checked;
-		        });
-		    });
-		});
+		this.registerCheckboxEvents();
+		this.registerSortEvents();
 	}
 
+	/**
+	 * Register the bulk events.
+	 */
 	this.registerBulkEvents = function () {
 
 		var wrapperElement = document.querySelector("[larables-wrapper='yes']");
-		var bulkOptionsElement = document.querySelector("[larables-id='bulk-options-select']");
+		var bulkOptionsElement = wrapperElement.querySelector("[larables-id='bulk-options-select']");
 		var checkboxName = wrapperElement.getAttribute('larables-checkbox-name');
-		var form = document.querySelector("[larables-id='bulk-options-form']");
+		var form = wrapperElement.querySelector("[larables-id='bulk-options-form']");
+
+		if (bulkOptionsElement == null) {
+			return;
+		}
 
 		bulkOptionsElement.addEventListener('change', function (event) {
 
@@ -118,9 +115,16 @@ function Larables() {
 		});
 	}
 
+	/**
+	 * Register the per page events.
+	 */
 	this.registerPerPageEvents = function () {
 		var form = document.querySelector("[larables-id='per-page-form']")
 		var perPageElement = document.querySelector("[larables-id='per-page-select']");
+
+		if (perPageElement == null) {
+			return;
+		}
 
 		perPageElement.addEventListener('change', function (event) {
 
@@ -144,13 +148,16 @@ function Larables() {
 		});
 	}
 
+	/**
+	 * Register the search events.
+	 */
 	this.registerSearchEvents = function () {
 		var self = this;
 		var searchInput = document.querySelector("[larables-id='search-input']");
 		var searchButton = document.querySelector("[larables-id='search-button']");
 		var searchForm = document.querySelector("[larables-id='search-form']");
 
-		if (searchInput == null && searchButton == null && searchForm == null) {
+		if (searchInput == null || searchButton == null || searchForm == null) {
 			return;
 		}
 
@@ -170,6 +177,39 @@ function Larables() {
 		});
 	}
 
+	/**
+	 * Register the checkbox events.
+	 */
+	this.registerCheckboxEvents = function () {
+		document.querySelectorAll("[larables-id='checkbox-parent']").forEach(function (element) {
+			element.addEventListener('click', function (event) {
+		        // We cycle through the body checkboxes and make them the same checked state as the clicked parent checkbox
+		        document.querySelectorAll("[larables-id='checkbox-child']").forEach(function (checkbox) {
+		            checkbox.checked = element.checked;
+		        });
+
+		        // Make all parent checkbox the same checked state as the one that was clicked
+		        document.querySelectorAll("[larables-id='checkbox-parent']").forEach(function (mainCheckbox) {
+		            mainCheckbox.checked = element.checked;
+		        });
+		    });
+		});
+	}
+
+	/**
+	 * Register the sort events.
+	 */
+	this.registerSortEvents = function () {
+		document.querySelectorAll("[larables-id='column-sort-button']").forEach(function (element) {
+			element.addEventListener('click', function (event) {
+				element.parentElement.querySelector('form').submit();
+			});
+		});
+	}
+
+	/**
+	 * Handle the search.
+	 */
 	this.handleSearch = function (searchInput, form) {
 	    if (searchInput.value.length >= 2) {
 	        var input = document.createElement("input");
