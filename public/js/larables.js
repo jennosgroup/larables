@@ -3308,6 +3308,9 @@ function Larables() {
    */
   this.registerBulkEvents = function () {
     var wrapperElement = document.querySelector("[larables-wrapper='yes']");
+    if (wrapperElement == null) {
+      return;
+    }
     var bulkOptionsElement = wrapperElement.querySelector("[larables-id='bulk-options-select']");
     var checkboxName = wrapperElement.getAttribute('larables-checkbox-name');
     var form = wrapperElement.querySelector("[larables-id='bulk-options-form']");
