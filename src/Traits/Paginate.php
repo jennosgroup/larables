@@ -115,7 +115,7 @@ trait Paginate
      */
     public function shouldDisplayPagination(): bool
     {
-        return $this->shouldPaginate() && $this->displayPagination;
+        return $this->displayPagination;
     }
 
     /**

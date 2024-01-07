@@ -22,11 +22,11 @@ trait Page
 	public function shouldDisplayTopBar(): bool
 	{
 		if (
-			! $this->displayBulkOptions
-			&& ! $this->displayPerPageOptions
-			&& ! $this->displaySearch
-			&& ! $this->displayActiveSection
-			&& ! $this->displayTrashSection
+			! $this->shouldDisplayBulkOptions()
+			&& ! $this->shouldDisplayPerPageOptions()
+			&& ! $this->shouldDisplaySearch()
+			&& ! $this->shouldDisplayActiveSection()
+			&& ! $this->shouldDisplayTrashSection()
 		) {
 			return false;
 		}
@@ -39,14 +39,22 @@ trait Page
 	 */
 	public function shouldDisplayBottomBar(): bool
 	{
+		if (! $this->displayBottomBar) {
+			return false;
+		}
+
 		if (! $this->hasData()) {
+			return false;
+		}
+
+		if (! $this->shouldDisplayPagination()) {
 			return false;
 		}
 
 		$data = $this->getData();
 
 		if (! $data instanceof LengthAwarePaginator) {
-			return $this->displayBottomBar;
+			return false;
 		}
 
 		return $data->currentPage() != $data->lastPage();
