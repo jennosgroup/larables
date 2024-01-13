@@ -12,6 +12,7 @@
     </select>
 
     <form style="display: none;" method="get" larables-id="per-page-form">
+        <input type="hidden" larables-id="per-page-input" name="{{ $table->getPerPageKey() }}" value=""> 
         @foreach ($table->getArgsForPerPageRequest() as $key => $value)
             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
         @endforeach

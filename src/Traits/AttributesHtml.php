@@ -17,6 +17,9 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
+		$attributes['larables-id'] = 'table';
+		$attributes['larables-checkbox-name'] = $this->getCheckboxName();
+
 		return $this->parseAttributesToString($attributes);
 	}
 

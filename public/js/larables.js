@@ -3294,6 +3294,8 @@ __webpack_require__.r(__webpack_exports__);
 function Larables() {
   /**
    * Initiate the object.
+   * 
+   * @return void
    */
   this.init = function () {
     this.registerBulkEvents();
@@ -3305,18 +3307,19 @@ function Larables() {
 
   /**
    * Register the bulk events.
+   * 
+   * @return void
    */
   this.registerBulkEvents = function () {
-    var wrapperElement = document.querySelector("[larables-wrapper='yes']");
-    if (wrapperElement == null) {
+    var tableElement = document.querySelector("[larables-id='table']");
+    var bulkOptionsElement = document.querySelector("[larables-id='bulk-options-select']");
+    var form = document.querySelector("[larables-id='bulk-options-form']");
+    if (tableElement == null || bulkOptionsElement == null || form == null) {
       return;
     }
-    var bulkOptionsElement = wrapperElement.querySelector("[larables-id='bulk-options-select']");
-    var checkboxName = wrapperElement.getAttribute('larables-checkbox-name');
-    var form = wrapperElement.querySelector("[larables-id='bulk-options-form']");
-    if (bulkOptionsElement == null) {
-      return;
-    }
+    var checkboxName = tableElement.getAttribute('larables-checkbox-name');
+
+    // Listen for when the bulk options has been selected
     bulkOptionsElement.addEventListener('change', function (event) {
       var element = event.target;
       var checkedValues = [];
@@ -3361,7 +3364,8 @@ function Larables() {
         });
       }
 
-      // Get the selected option element
+      // Get the selected option element and get the request type and route
+      // so we can fire off the request.
       var option = element.options[element.selectedIndex];
       var requestType = option.getAttribute('request_type').toLowerCase();
       var route = option.getAttribute('route');
@@ -3391,9 +3395,11 @@ function Larables() {
         methodElement.setAttribute('value', requestType);
       }
 
-      // Set the form method, form action and an action selected
+      // Set the form method and form action
       form.setAttribute('method', method);
       form.setAttribute('action', route);
+
+      // Set the value of the bulk option selected so that it is included in the request
       form.querySelector("[larables-id='bulk-options-name']").value = element.value;
 
       // Finally we submit the form
@@ -3403,13 +3409,17 @@ function Larables() {
 
   /**
    * Register the per page events.
+   * 
+   * @return void
    */
   this.registerPerPageEvents = function () {
-    var form = document.querySelector("[larables-id='per-page-form']");
     var perPageElement = document.querySelector("[larables-id='per-page-select']");
-    if (perPageElement == null) {
+    var form = document.querySelector("[larables-id='per-page-form']");
+    if (perPageElement == null || form == null) {
       return;
     }
+
+    // Listen for when the per page value changes
     perPageElement.addEventListener('change', function (event) {
       var element = event.target;
       if (element.value == '') {
@@ -3419,16 +3429,17 @@ function Larables() {
           text: 'Oops, looks like you did not specify the amount of entries you want to be displayed!'
         });
       }
-      var input = document.createElement('input');
-      input.setAttribute('name', element.getAttribute('name'));
-      input.setAttribute('value', element.value);
-      form.appendChild(input);
+
+      // Set the per page value selected on the form so it goes with the submitted request
+      form.querySelector("[larables-id='per-page-input']").value = element.value;
       form.submit();
     });
   };
 
   /**
    * Register the search events.
+   * 
+   * @return void
    */
   this.registerSearchEvents = function () {
     var self = this;
@@ -3455,6 +3466,8 @@ function Larables() {
 
   /**
    * Register the checkbox events.
+   * 
+   * @return void
    */
   this.registerCheckboxEvents = function () {
     document.querySelectorAll("[larables-id='checkbox-parent']").forEach(function (element) {
@@ -3474,6 +3487,8 @@ function Larables() {
 
   /**
    * Register the sort events.
+   * 
+   * @return void
    */
   this.registerSortEvents = function () {
     document.querySelectorAll("[larables-id='column-sort-button']").forEach(function (element) {
@@ -3485,6 +3500,8 @@ function Larables() {
 
   /**
    * Handle the search.
+   * 
+   * @return void
    */
   this.handleSearch = function (searchInput, form) {
     if (searchInput.value.length >= 2) {
