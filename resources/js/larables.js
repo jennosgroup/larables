@@ -46,7 +46,7 @@ function Larables() {
 		    }
 
 		    // Get all the checked items and add them to the form for submitting
-		    wrapperElement.querySelectorAll("[larables-id='checkbox-child']").forEach(function (checkbox) {
+		    document.querySelectorAll("[larables-id='checkbox-child']").forEach(function (checkbox) {
 		        if (checkbox.checked != true) {
 		            return;
 		        }
