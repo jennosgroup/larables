@@ -658,10 +658,6 @@ trait AttributesHtml
 			$attributes = $this->$method($attributes);
 		}
 
-		$attributes['larables-wrapper'] = 'yes';
-        $attributes['larables-id'] = $this->getId();
-        $attributes['larables-checkbox-name'] = $this->getCheckboxName();
-
 		return $this->parseAttributesToString($attributes);
 	}
 

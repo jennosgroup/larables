@@ -5,24 +5,37 @@ namespace JennosGroup\Larables;
 class Larables
 {
 	/**
+	 * The package version.
+	 */
+	private static string $version = '1.0.0';
+
+	/**
 	 * The vendor directory name.
 	 */
-	protected static $vendorDirName = 'larables';
+	protected static string $vendorDirName = 'larables';
 
 	/**
 	 * The assets tag id.
 	 */
-	protected static $assetsTagId = 'larables-assets';
+	protected static string $assetsTagId = 'larables-assets';
 
 	/**
 	 * The views tag id.
 	 */
-	protected static $viewsTagId = 'larables-views';
+	protected static string $viewsTagId = 'larables-views';
 
 	/**
 	 * The views id.
 	 */
-	protected static $viewsId = 'larables';
+	protected static string $viewsId = 'larables';
+
+	/**
+	 * Get the package version.
+	 */
+	public static function version(): string
+	{
+		return static::$version;
+	}
 
 	/**
 	 * Get the assets relative path.
@@ -93,6 +106,6 @@ class Larables
 	 */
 	public static function setViewsId(string $name): void
 	{
-		static::$viewsId;
+		static::$viewsId = $name;
 	}
 }
