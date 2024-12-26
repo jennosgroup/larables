@@ -57,6 +57,10 @@ trait Page
 			return false;
 		}
 
+		if ($data->lastPage() == 1) {
+			return false;
+		}
+
 		return $data->currentPage() != $data->lastPage();
 	}
 }

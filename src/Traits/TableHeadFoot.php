@@ -22,14 +22,14 @@ Trait TableHeadFoot
     /**
      * Get the column th title.
      */
-    public function getTitleForColumn(string $columnId, string $columnTitle = null, int $columnNumber, string $position): ?string
+    public function getTitleForColumn(string $columnId, string $columnTitle = null, int $columnNumber, string $columnPosition): ?string
     {
         if (method_exists($this, $method = 'get'.Str::studly($columnId).'ColumnTitle')) {
-            return $this->$method($columnTitle, $columnNumber, $position);
+            return $this->$method($columnTitle, $columnNumber, $columnPosition);
         }
 
         if (method_exists($this, $method = 'getColumnTitle')) {
-            return $this->$method($columnId, $columnTitle, $columnNumber, $position);
+            return $this->$method($columnId, $columnTitle, $columnNumber, $columnPosition);
         }
 
         return $this->output($columnTitle);
