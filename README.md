@@ -12,6 +12,9 @@
 8. [Sorting Columns](#sorting-columns)
 9. [Multiple Sorting](#multiple-sorting)
 10. [Bulk Request and Checkbox](#bulk-request-and-checkbox)
+11. [Items Per Page](#items-per-page)
+12. [Search](#search)
+13. [Row Actions](#row-actions)
 
 ### About
 
@@ -166,6 +169,40 @@ protected function handleSortQuery(array $columns): void
 
 You have to do the sorting through the `$this->getQuery()->orderBy()` method.
 
+By default, the sort and order key in the GET request are `sort_by` and `order` respectively. To change this, update the `$sortKey` and `$orderKey` properties.
+
+```php
+/**
+ * The sort by key.
+ */
+protected string $sortKey = 'sort_by';
+
+/**
+ * The order key.
+ */
+protected string $orderKey = 'order';
+```
+
+If you want to change the icon for asc and desc sorting, override the `getAscSortIconHtml` and `getDescSortIconHtml` method.
+
+```php
+/**
+ * Get the asc sort icon markup.
+ */
+public function getAscSortIconHtml(): string
+{
+    return 'svg icon';
+}
+
+/**
+ * Get the desc sort icon markup.
+ */
+public function getDescSortIconHtml(): string
+{
+    return 'svg icon';
+}
+```
+
 ### Multiple Sorting
 
 By default, only one column is sorted at a time. To enable multiple sorting, set the `$allowMultipleSorting` property to true.
@@ -237,6 +274,26 @@ The values submitted with the bulk request will correspond to the `id` key of th
  * The name of the item field, that is used to set the checkbox value.
  */
 protected string $checkboxIdField = 'uuid';
+```
+
+If you want to customize the model value passed to each checkbox, feel free to override the `getItemCheckboxValue` method.
+
+```php
+/**
+ * Get the checkbox value for an individual item.
+ */
+public function getItemCheckboxValue(mixed $item): mixed
+{
+    if (isset($item->{$this->getCheckboxIdField()})) {
+        return $item->{$this->getCheckboxIdField()};
+    }
+
+    if (isset($item[$this->getCheckboxIdField()])) {
+        return $item[$this->getCheckboxIdField()];
+    }
+
+    return null;
+}
 ```
 
 You can determine if an individual row should have a checkbox. Define an `itemHasCheckbox` function and perform your logics in it.
@@ -334,6 +391,27 @@ public function handleSearchQuery(mixed $value): void
 }
 ```
 
+The search value is submitted in the `search` name field. To change this, alter the `$searchKey` property.
+
+```php
+/**
+ * The search key.
+ */
+protected string $searchKey = 'search';`
+```
+
+If you want to change the look of the search icon, override the `getSearchIconHtml` method.
+
+```php
+/**
+ * Get the search icon markup.
+ */
+public function getSearchIconHtml(): string
+{
+    return 'svg icon';
+}
+```
+
 ### Row Actions
 
 To enable support for row actions, set the `$hasActions` property to true.
@@ -368,6 +446,24 @@ protected array $actions = [
         'method' => 'delete',
     ],
 ];
+```
+
+There is a possibility that you may want the actions to be unique to the rows. You can put your logics in the `getItemActions` method.
+
+```php
+/**
+ * Get the actions for an individual item.
+ */
+public function getItemActions(mixed $item): array
+{
+    $actions = $this->getActions();
+
+    if (Auth::user()->cannot('trash', $item)) {
+        unset($actions['trash']);
+    }
+
+    return $actions;
+}
 ```
 
 By default, the action is displayed as a link style. If you want it to display as a button, change the `$actionDisplayType` property.
@@ -456,6 +552,23 @@ Lastly, the system has to know which section is currently active. You can do thi
  * The section that is current. 'active' and 'trash' is reserved by us.
  */
 protected string $currentSection = 'active';
+```
+
+You can change the icons for both section by overriding the `getActiveSectionIconHtml` and `getTrashSectionIconHtml` method respectively.
+
+```php
+/**
+ * Get the active section image markup.
+ */
+public function getActiveSectionIconHtml(): string
+{
+    return 'svg icon';
+}
+
+public function getTrashSectionIconHtml(): string
+{
+    return 'svg icon';
+}
 ```
 
 ### Table Footer
