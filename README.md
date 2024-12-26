@@ -15,6 +15,9 @@
 11. [Items Per Page](#items-per-page)
 12. [Search](#search)
 13. [Row Actions](#row-actions)
+14. [Active and Trash Section Icon](#active-and-trash-section-icon)
+15. [Table Footer](#table-footer)
+16. [No Items To Display](#no-items-to-display)
 
 ### About
 
@@ -579,7 +582,7 @@ By default, the table footer is not displayed. To turn it on, set the `displayTf
 protected bool $displayTfoot = true;
 ```
 
-### Miscellaneous
+### No Items To Display
 
 If there are no items to display for the table, by default, a `There is nothing to display.` message will appear. To customize this, define the following on your class and change it.
 
