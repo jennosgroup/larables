@@ -38,19 +38,11 @@ class Larables
 	}
 
 	/**
-	 * Get the assets relative path.
+	 * Get the vendor directory name.
 	 */
-	public static function assetsRelativePath(): string
+	public static function vendorDirectoryName(): string
 	{
-		return 'vendor/'.static::$vendorDirName;
-	}
-
-	/**
-	 * Get the views relative path.
-	 */
-	public static function viewsRelativePath(): string
-	{
-		return 'views/vendor/'.static::$vendorDirName;
+		return static::$vendorDirName;
 	}
 
 	/**
@@ -75,6 +67,35 @@ class Larables
 	public static function viewsId(): string
 	{
 		return static::$viewsId;
+	}
+
+	/**
+	 * Get the assets relative path.
+	 * 
+	 */
+	public static function assetsRelativePath(?string $file = null): string
+	{
+		$path = 'vendor/'.static::$vendorDirName;
+
+		if (! is_null($file)) {
+			$path .= '/'.$file;
+		}
+
+		return $path;
+	}
+
+	/**
+	 * Get the views relative path.
+	 */
+	public static function viewsRelativePath(?string $file = null): string
+	{
+		$path = 'views/vendor/'.static::$vendorDirName;
+
+		if (! is_null($file)) {
+			$path .= '/'.$file;
+		}
+
+		return $path;
 	}
 
 	/**

@@ -6,6 +6,12 @@
 2. [Installation](#installation)
 3. [Setup](#setup)
 4. [Getting Started](#getting-started)
+5. [Columns](#columns)
+6. [Customizing Column Title](#customizing-column-title)
+7. [Customizing Column Content](#customizing-column-content)
+8. [Sorting Columns](#sorting-columns)
+9. [Multiple Sorting](#multiple-sorting)
+10. [Bulk Request and Checkbox](#bulk-request-and-checkbox)
 
 ### About
 
@@ -13,11 +19,11 @@ Larables is a laravel package that allows you to seemlessly generate html tables
 
 ### Installation
 
-Install with composer `composer require jennosgroup/larables`.
+Install with composer via command `composer require jennosgroup/larables`.
 
 ### Setup
 
-Publish the package assets with artisan command `php artisan vendor:publish --tag=larables-assets`.
+Publish the package assets with the artisan command `php artisan vendor:publish --tag=larables-assets`.
 
 Then include the `larables.js` script in your html markup as features such as bulk request, per page options, searching and sorting columns relies on it.
 
@@ -27,7 +33,7 @@ Then include the `larables.js` script in your html markup as features such as bu
 
 NOTE:: If you are going to create numerous html tables across different pages of your site that will share similar styles and features, we highly recommend that you create an abstract class and let all your other tables extend it. This is because all configuration for the look and feel of the table is class based. Only the content that is unique to a current page should be defined in your page table class.
 
-Create your table class and extend the `JennosGroup\Larables\Table` class. Then define a `baseQuery` method which should return an instance of the Eloquent Builder
+Create your table class and extend the `JennosGroup\Larables\Table` class. Then define a `baseQuery` method which should return an instance of the Eloquent Builder. 
 
 ```php
 <?php
@@ -213,7 +219,9 @@ public function getBulkOptions(): array
 
 The bulk request will be fired off to the defined route with the request method specified in the `request_type` key.
 
-By default, the value of the bulk request is submitted in the `bulk_action` name field. To change this, update the value of the `$bulkActionKey` property.
+By default, the value(s) of the bulk request is submitted in the `bulk_action` name field. To change this, update the value of the `$bulkActionKey` property.
+
+NOTE:: You will have to intercept the value of the bulk request submitted and carry out your own validation and actions, then return back to the main page.
 
 ```php
 /**
@@ -222,7 +230,7 @@ By default, the value of the bulk request is submitted in the `bulk_action` name
 protected string $bulkActionKey = 'bulk_action';
 ```
 
-The values submitted with the bulk request will correspond to the id key of the model selected. To customize which model key is used, set the value of the `$checkboxIdField` property.
+The values submitted with the bulk request will correspond to the `id` key of the model selected. To customize which model key is used, set the value of the `$checkboxIdField` property.
 
 ```php
 /**
@@ -323,6 +331,76 @@ public function handleSearchQuery(mixed $value): void
             }
         }
     });
+}
+```
+
+### Row Actions
+
+To enable support for row actions, set the `$hasActions` property to true.
+
+```php
+/**
+ * If we should automatically handle the actions column.
+ */
+protected bool $hasActions = true;
+```
+
+Next, we define the actions we need in the `$actions` array property.
+
+```php
+/**
+ * The list of action types that is needed by default.
+ */
+protected array $actions = [
+    'view' => [
+        'route_name' => 'posts.view',
+        'pass_model' => false, // defaults to true. This option is for us to pass the model to the route.
+        'args' => null, // useful for get method but can be excluded. If this is given, it will be passed to the route instead of the model.
+        'method' => 'post', // defaults to get
+        'url' => 'https://github.com', // if an explicit url is given, no other arguments are taken into consideration.
+    ],
+    'edit' => [
+        'route_name' => 'posts.edit',
+        'method' => 'delete',
+    ],
+    'trash' => [
+        'route_name' => 'posts.trash',
+        'method' => 'delete',
+    ],
+];
+```
+
+By default, the action is displayed as a link style. If you want it to display as a button, change the `$actionDisplayType` property.
+
+```php
+/**
+ * The action display type.
+ *
+ * Accepts 'button' or 'link'.
+ */
+protected string $actionDisplayType = 'button';
+```
+
+By default, the action content type is displayed as text. If you want to change it to an icon, change the `$actionContentType` property.
+
+```php
+/**
+ * The type of content for the action.
+ *
+ * Accepts 'text' or 'icon'.
+ */
+protected string $actionContentType = 'icon';
+```
+
+There are icons by default for view, edit, trash, restore and delete actions. If you have another action apart from these, you can return the markup for an icon through a dynamic method with naming `get{ActionName)ActionIconHtml`. Let's use a download icon for example.
+
+```php
+/**
+ * Get the action icon markup for the download action.
+ */
+public function getDownloadActionIconHtml(string $action): ?string
+{
+    return 'some icon html code';
 }
 ```
 
