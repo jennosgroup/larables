@@ -115,6 +115,10 @@ trait ElementAttributes
      */
     public function parseAttributeToString(string $attribute, $value): string
     {
+        if (is_null($value)) {
+            return $attribute."=''";
+        }
+
         if (is_array($value)) {
             $value = implode(' ', array_unique($value));
         } else {
